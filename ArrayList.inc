@@ -220,25 +220,25 @@ stock ArrayList::Add(ArrayList:ArrayListID, { _, Float}:var, tag = tagof(var))
 		size = eArrayList[_:ArrayListID][al_size],
 		value[0x40];
 
-    if (tag == tagof(Float:)) // Float
-    {
-    	if (eArrayList[_:ArrayListID][al_type] != FLOAT)
-    		return (false);
+	if (tag == tagof(Float:)) // Float
+	{
+		if (eArrayList[_:ArrayListID][al_type] != FLOAT)
+			return (false);
 
-    	format (value, 0x40, "%f", var);
-        setproperty(0, "", (id + size), value);
-    }
-    else // Integer
-    {
-    	if (eArrayList[_:ArrayListID][al_type] != INTEGER)
-    		return (false);
+		format (value, 0x40, "%f", var);
+		setproperty(0, "", (id + size), value);
+	}
+	else // Integer
+	{
+		if (eArrayList[_:ArrayListID][al_type] != INTEGER)
+			return (false);
 
-    	format (value, 0x40, "%i", var);
-        setproperty(0, "", (id + size), value);
-    }
+		format (value, 0x40, "%i", var);
+		setproperty(0, "", (id + size), value);
+	}
 
-    eArrayList[_:ArrayListID][al_size] ++;
-    return (true);
+	eArrayList[_:ArrayListID][al_size] ++;
+	return (true);
 }
 
 
@@ -380,14 +380,15 @@ stock ArrayList::Remove(ArrayList:ArrayListID, position)
 	if (eArrayList[_:ArrayListID][al_size] < position)
 		return (false);
 
-	for (new i = position; i < eArrayList[_:ArrayListID][al_size]; i++)
+	for (new i = position, size = eArrayList[_:ArrayListID][al_size]; i < size;
+		i++)
 	{
 		new 
 			value[0x40];
 
 		getproperty(0, "", ((_:ArrayListID + i) + 1), value);
- 		strunpack(value, value, 0x40);
- 		setproperty(0, "", (_:ArrayListID + i), value);
+		strunpack(value, value, 0x40);
+		setproperty(0, "", (_:ArrayListID + i), value);
 	}
 
 	eArrayList[_:ArrayListID][al_size] --;
@@ -412,7 +413,7 @@ stock ArrayList::Clear(ArrayList:ArrayListID)
 	if (!ArrayList::IsValid(ArrayListID))
 		return (false);
 
-	for (new i = 0; i < eArrayList[_:ArrayListID][al_size]; i++)
+	for (new i = 0, size = eArrayList[_:ArrayListID][al_size]; i < size; i++)
 	{
 		deleteproperty(0, "", (i + _:ArrayListID));
 	}
@@ -446,19 +447,19 @@ stock ArrayList::IndexOf(ArrayList:ArrayListID, { _, Float}:value, tag = tagof(v
 
 
 	if (tag == tagof(Float:)) // Float
-    {
-    	if (eArrayList[_:ArrayListID][al_type] != FLOAT)
-    		return -1;
+	{
+		if (eArrayList[_:ArrayListID][al_type] != FLOAT)
+			return -1;
 
-    	format (vc, 0x40, "%f", value);
-    }
-    else // Integer
-    {
-    	if (eArrayList[_:ArrayListID][al_type] != INTEGER)
-    		return -1;
+		format (vc, 0x40, "%f", value);
+	}
+	else // Integer
+	{
+		if (eArrayList[_:ArrayListID][al_type] != INTEGER)
+			return -1;
 
-    	format (vc, 0x40, "%i", value);
-    }
+		format (vc, 0x40, "%i", value);
+	}
 	
 
 	for (new i = 0; i < eArrayList[_:ArrayListID][al_size]; i++)
@@ -476,9 +477,9 @@ stock ArrayList::IndexOf(ArrayList:ArrayListID, { _, Float}:value, tag = tagof(v
 			break;
 		}
 	}
-	
+
 	if (found)
 		return index;
-	
+
 	return -1;
 }
