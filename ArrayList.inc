@@ -62,9 +62,15 @@
 
 
 // Macros
-#define NewArrayList<%0>(%1) \
- 			ArrayList:ArrayList::Create(%0, %1)
+// #define NewArrayList<%0>(%1) ArrayList:ArrayList::Create(%0, %1)
+#define NewArrayList<%0> ArrayList:ArrayList::Create(_:AL_TMPS:%0)
 
+// Templates
+#define AL_TMPS: AL_TMP_INT:AL_TMP_FLOAT:AL_TMP_NONE|||
+
+#define AL_TMP_INT:AL_TMP_FLOAT:AL_TMP_NONE|||i:%0) INTEGER,%0)   // integer
+#define AL_TMP_FLOAT:AL_TMP_NONE|||f:%0)            FLOAT,%0)     // float
+#define AL_TMP_NONE|||%0)                           INTEGER,%0)   // default
 
 // Declarations
 enum E_ARRAY_LIST
@@ -85,24 +91,18 @@ forward ArrayList:ArrayList::Create(type, capacity);
 // Function for include
 static stock findArrayListID()
 {
-	new 
-		bool:found,
-		 	 id;
+	new id = -1;
 
 	for (new i = 0; i < MAX_ARRAY_LIST; i++)
 	{
 		if (!eArrayList[i][al_used])
 		{
-			found = true;
 			id = i;
 			break;
 		}
 	}
 
-	if (found)
-		return id;
-
-	return -1;
+	return (id != -1) ? id : -1;
 }
 
 
@@ -121,10 +121,7 @@ static stock findArrayListID()
 ----------------------------------------------------------------------------*/
 stock ArrayList::IsValid(ArrayList:ArrayListID)
 {
-	if (eArrayList[_:ArrayListID][al_used])
-		return (true);
-
-	return (false);
+	return (eArrayList[_:ArrayListID][al_used]);
 }
 
 
