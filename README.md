@@ -34,7 +34,7 @@ ArrayList in PAWN
 ```pawn
   new ArrayList:myList;
   
-  myList = NewArrayList<i:5>;
+  myList = NewArrayList<INTEGER>(5);
   
   ArrayList::Add (myList, 420);
   ArrayList::Add (myList, 41564);

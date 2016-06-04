@@ -62,15 +62,8 @@
 
 
 // Macros
-// #define NewArrayList<%0>(%1) ArrayList:ArrayList::Create(%0, %1)
-#define NewArrayList(%0) ArrayList:ArrayList::Create(_:AL_TMPS:%0)
-
-// Templates
-#define AL_TMPS: AL_TMP_INT:AL_TMP_FLOAT:AL_TMP_NONE|||
-
-#define AL_TMP_INT:AL_TMP_FLOAT:AL_TMP_NONE|||int:%0) INTEGER,%0)   // integer
-#define AL_TMP_FLOAT:AL_TMP_NONE|||float:%0)            FLOAT,%0)     // float
-#define AL_TMP_NONE|||%0)                           INTEGER,%0)   // default
+#define NewArrayList<%0>(%1) \
+	ArrayList:ArrayList::Create(%0, %1)
 
 // Declarations
 enum E_ARRAY_LIST
