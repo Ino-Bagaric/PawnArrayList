@@ -40,7 +40,7 @@ ArrayList in PAWN
   ArrayList::Add (myList, 41564);
   ArrayList::Add (myList, 123456);
   
-  for (new i = 0; i < ArrayList::Size (myList); i++)
+  for (new i = 0, size = ArrayList::Size(myList); i < size; i++)
   {
       printf ("Value - %d | Index - %d", ArrayList::Get (myList, i), i);
   }
