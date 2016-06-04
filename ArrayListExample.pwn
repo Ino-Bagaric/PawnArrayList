@@ -68,7 +68,7 @@ public updateplayers()
 		for (new i = 0; i < ArrayList::Size(playersList); i++) // Loop just online players
 		{
 			// Message...
-			printf ("Looped player ID - %i", i);
+			printf ("Looped player ID - %i", ArrayList::Get (playersList, i);
 		}
 
 		// And info at end
