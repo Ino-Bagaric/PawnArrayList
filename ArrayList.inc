@@ -65,6 +65,7 @@
 #define NewArrayList<%0>(%1) \
 	ArrayList:ArrayList::Create(%0, %1)
 
+
 // Declarations
 enum E_ARRAY_LIST
 {
@@ -209,8 +210,7 @@ stock ArrayList::Add(ArrayList:ArrayListID, { _, Float}:var, tag = tagof(var))
 	eArrayList[_:ArrayListID][al_used] = true;
 
 	new 
-		id = _:ArrayListID,
-		size = eArrayList[_:ArrayListID][al_size],
+		address = (((_:ArrayListID + 1) * 0xFFFF) + eArrayList[_:ArrayListID][al_size]),
 		value[0x40];
 
 	if (tag == tagof(Float:)) // Float
@@ -219,7 +219,7 @@ stock ArrayList::Add(ArrayList:ArrayListID, { _, Float}:var, tag = tagof(var))
 			return (false);
 
 		format (value, 0x40, "%f", var);
-		setproperty(0, "", (id + size), value);
+		setproperty(0, "", address, value);
 	}
 	else // Integer
 	{
@@ -227,7 +227,7 @@ stock ArrayList::Add(ArrayList:ArrayListID, { _, Float}:var, tag = tagof(var))
 			return (false);
 
 		format (value, 0x40, "%i", var);
-		setproperty(0, "", (id + size), value);
+		setproperty(0, "", address, value);
 	}
 
 	eArrayList[_:ArrayListID][al_size] ++;
@@ -300,7 +300,7 @@ stock ArrayList::Get(ArrayList:ArrayListID, index)
 
 	new 
 		value[0x40],
-		address = (_:ArrayListID + index);
+		address = (((_:ArrayListID + 1) * 0xFFFF) + index);
 
 	getproperty(0, "", address, value);
 	strunpack(value, value, 0x40);
@@ -379,9 +379,9 @@ stock ArrayList::Remove(ArrayList:ArrayListID, position)
 		new 
 			value[0x40];
 
-		getproperty(0, "", ((_:ArrayListID + i) + 1), value);
+		getproperty(0, "", ((((_:ArrayListID + 1) * 0xFFFF) + i) + 1), value);
 		strunpack(value, value, 0x40);
-		setproperty(0, "", (_:ArrayListID + i), value);
+		setproperty(0, "", (((_:ArrayListID + 1) * 0xFFFF) + i), value);
 	}
 
 	eArrayList[_:ArrayListID][al_size] --;
