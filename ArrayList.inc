@@ -4,9 +4,9 @@
 			ArrayList in PAWN	
 
 			@author: Ino
-			@version: 1.0.0
+			@version: 1.0.1
 			@release: 03/06/2016
-			@build: 1	
+			@build: 2	
 			@download: github.com/Ino42O/PawnArrayList
 
 ---------------------------------------
@@ -32,6 +32,9 @@
  		03-06-2016:
  			* Initial release
 
+ 		12-07-2016:
+ 			* Fixed bugs with multi-list
+
 
 
  	Available types:
@@ -56,8 +59,8 @@
 
 // Script
 #define ARRAYLIST_UPDATE 		("03/06/2016")
-#define ARRAYLIST_VERSION 		("1.0.0")
-#define ARRAYLIST_BUILD 		(1)
+#define ARRAYLIST_VERSION 		("1.0.1")
+#define ARRAYLIST_BUILD 		(2)
 //#define ARRAYLIST_DEBUG 		// unavailable right now
 
 
