@@ -62,6 +62,19 @@ public OnPlayerDisconnect(playerid, reason)
 	return 1;
 }
 
+public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
+{
+	if (dialogid == INVENTORY_DIALOG)
+	{
+		if (response)
+		{
+			RemoveItemFromInventory(playerid, listitem + 1);
+		}
+	}
+	return 1;
+}
+
+
 
 // Functions
 stock ClearInventory(playerid)
